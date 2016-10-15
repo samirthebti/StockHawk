@@ -22,7 +22,7 @@
             android:id="@+id/Symbolename"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="top|center"
             android:text="@string/app_name"
             tools:textAppearance="@style/TextAppearance.AppCompat.Caption"
@@ -32,7 +32,7 @@
             android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:contextClickable="true"
+            android:background="#FFFFFF"
             />
 
     </LinearLayout>
