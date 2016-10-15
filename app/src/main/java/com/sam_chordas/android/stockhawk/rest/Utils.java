@@ -4,6 +4,7 @@ import android.content.ContentProviderOperation;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.sam_chordas.android.stockhawk.Model.Stock;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 
@@ -72,7 +73,36 @@ public class Utils {
         return batchOperations;
     }
 
+    public static ArrayList<Stock> getHestoricalData(String json) {
+        ArrayList<Stock> stocks = new ArrayList<>();
+        JSONObject jsonObject = null;
+        JSONArray resultsArray = null;
+        try {
+            //we need to remove first and last lines of json response
+            String jsonGlobalObject = json.substring(json.indexOf("(") + 1, json.lastIndexOf(")"));
 
+            jsonObject = new JSONObject(jsonGlobalObject);
+            resultsArray = jsonObject.getJSONArray(JSON_SERIES);
+
+            if (resultsArray != null && resultsArray.length() != 0) {
+                for (int i = 0; i < resultsArray.length(); i++) {
+                    Stock stock = new Stock();
+                    jsonObject = resultsArray.getJSONObject(i);
+                    stock.setDate(jsonObject.getString(JSON_DATE));
+                    stock.setClose(jsonObject.getString(JSON_CLOSE));
+                    stocks.add(stock);
+                }
+            }
+        } catch (
+                JSONException e
+                )
+
+        {
+            Log.e(LOG_TAG, "String to JSON failed: " + e);
+        }
+        Log.d(LOG_TAG, "getHestoricalData: " + stocks.toString());
+        return stocks;
+    }
 
     public static String truncateBidPrice(String bidPrice) {
         bidPrice = String.format("%.2f", Float.parseFloat(bidPrice));
