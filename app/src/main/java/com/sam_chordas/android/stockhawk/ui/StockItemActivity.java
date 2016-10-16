@@ -9,6 +9,7 @@ import android.os.PersistableBundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -47,14 +48,19 @@ public class StockItemActivity extends AppCompatActivity {
     private YAxis yAxis;
     private MarkerView mv;
     private String mSymbole;
+    private TextView symbolTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Bundle bundle = getIntent().getExtras();
         mSymbole = bundle.getString("symbole");
-        Log.d(TAG, "onCreate: " + mSymbole);
+
         setContentView(R.layout.activity_stock_item);
+        symbolTextView = (TextView) findViewById(R.id.symbolename);
+        symbolTextView.setText(mSymbole);
+
         chart = (LineChart) findViewById(R.id.chart);
         client = new OkHttpClient();
         xAxis = chart.getXAxis();
