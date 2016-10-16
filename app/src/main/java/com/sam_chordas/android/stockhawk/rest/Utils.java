@@ -13,6 +13,7 @@ import com.sam_chordas.android.stockhawk.Model.Stock;
 import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
+import com.sam_chordas.android.stockhawk.service.StockTaskService;
 import com.sam_chordas.android.stockhawk.service.StockTaskService.StockStatuses;
 
 import org.json.JSONArray;
@@ -25,6 +26,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+
+
+import static com.sam_chordas.android.stockhawk.service.StockTaskService.STATUS_UNKNOWN;
 
 /**
  * Created by sam_chordas on 10/8/15.
@@ -79,6 +83,7 @@ public class Utils {
             }
         } catch (JSONException e) {
             Log.e(LOG_TAG, "String to JSON failed: " + e);
+
         }
         return batchOperations;
     }
@@ -201,6 +206,13 @@ public class Utils {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt(context.getString(R.string.status_shared_pref), stockStatus);
         editor.apply();
+    }
 
+    @SuppressWarnings("ResourceType")
+    static public
+    @StockTaskService.StockStatuses
+    int getNetworkStatus(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getInt(context.getString(R.string.status_shared_pref), STATUS_UNKNOWN);
     }
 }

@@ -1,4 +1,5 @@
-<FrameLayout
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/main_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,6 +10,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="visible"
         />
 
     <TextView
@@ -20,7 +22,7 @@
         android:visibility="gone"
         />
 
-    <com.melnykov.fab.FloatingActionButton
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,4 +37,4 @@
         fab:layout_anchor="recycler_view"
         fab:layout_anchorGravity="bottom | end"
         />
-</FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

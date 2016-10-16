@@ -88,6 +88,7 @@ public class StockTaskService extends GcmTaskService {
                     + "in (", "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            Utils.setNetworkStatus(mContext, STATUS_UNKNOWN);
         }
         if (params.getTag().equals("init") || params.getTag().equals("periodic")) {
             isUpdate = true;
@@ -101,6 +102,7 @@ public class StockTaskService extends GcmTaskService {
                             URLEncoder.encode("\"YHOO\",\"AAPL\",\"GOOG\",\"MSFT\")", "UTF-8"));
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
+                    Utils.setNetworkStatus(mContext, STATUS_UNKNOWN);
                 }
             } else if (initQueryCursor != null) {
                 DatabaseUtils.dumpCursor(initQueryCursor);
@@ -115,6 +117,7 @@ public class StockTaskService extends GcmTaskService {
                     urlStringBuilder.append(URLEncoder.encode(mStoredSymbols.toString(), "UTF-8"));
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
+                    Utils.setNetworkStatus(mContext, STATUS_UNKNOWN);
                 }
             }
         } else if (params.getTag().equals("add")) {
@@ -125,6 +128,7 @@ public class StockTaskService extends GcmTaskService {
                 urlStringBuilder.append(URLEncoder.encode("\"" + stockInput + "\")", "UTF-8"));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
+                Utils.setNetworkStatus(mContext, STATUS_UNKNOWN);
             }
         }
         // finalize the URL for the API query.
@@ -150,9 +154,12 @@ public class StockTaskService extends GcmTaskService {
                             Utils.quoteJsonToContentVals(getResponse));
                 } catch (RemoteException | OperationApplicationException e) {
                     Log.e(LOG_TAG, "Error applying batch insert", e);
+                    Utils.setNetworkStatus(mContext, STATUS_ERROR_JSON);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                Utils.setNetworkStatus(mContext, STATUS_SERVER_DOWN);
+
             }
         }
 
