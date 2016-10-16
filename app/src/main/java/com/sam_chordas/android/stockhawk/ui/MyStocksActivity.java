@@ -19,6 +19,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -53,6 +54,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     private Context mContext;
     private Cursor mCursor;
     boolean isConnected;
+    private TextView emptyTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                 activeNetwork.isConnectedOrConnecting();
 
         setContentView(R.layout.activity_my_stocks);
+        emptyTextView = (TextView) findViewById(R.id.emptydisplay);
         // The intent service is for executing immediate pulls from the Yahoo API
         // GCMTaskService can only schedule tasks, they cannot execute immediately
         mServiceIntent = new Intent(this, StockIntentService.class);
@@ -100,6 +103,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                         // do something on item click
                     }
                 }));
+
         recyclerView.setAdapter(mCursorAdapter);
 
 

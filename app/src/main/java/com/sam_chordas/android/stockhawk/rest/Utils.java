@@ -1,12 +1,19 @@
 package com.sam_chordas.android.stockhawk.rest;
 
 import android.content.ContentProviderOperation;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.sam_chordas.android.stockhawk.Model.Stock;
+import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
+import com.sam_chordas.android.stockhawk.service.StockTaskService.StockStatuses;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,7 +47,6 @@ public class Utils {
     public static String builHistoricalRequest(@NonNull String symbol) throws UnsupportedEncodingException {
         String stringBuilder = null;
         stringBuilder = BASE_URL + symbol + END_URL;
-
         return stringBuilder;
     }
 
@@ -178,5 +184,23 @@ public class Utils {
         Date date = formatter.parse(stringDate);
 
         return date.getTime();
+    }
+
+    //check the network is availble or not
+    static public boolean isNetworkAvailable(Context c) {
+        ConnectivityManager cm =
+                (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+    }
+
+    public static void setNetworkStatus(Context context, @StockStatuses int stockStatus) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(context.getString(R.string.status_shared_pref), stockStatus);
+        editor.apply();
+
     }
 }

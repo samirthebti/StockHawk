@@ -9,5 +9,13 @@
     <string name="content_test">Search for a Stock Symbol</string>
     <string name="input_hint">FB</string>
     <string name="input_prefill"></string>
+    <string name="status_shared_pref" translatable="false">status</string>
     <string name="network_toast">Uh-oh! This app requires an internet connection</string>
+    <string name="data_not_available" translatable="true">Stocks data not available, possible solution:\n</string>
+    <string name="string_status_ok" translatable="true">You need to add new stocks by clicking add button!</string>
+    <string name="string_status_no_network" translatable="true">You need to connect to internet to retrieve stock data!</string>
+    <string name="string_error_json" translatable="true">App Internal Error occurred! Sorry!</string>
+    <string name="string_server_down" translatable="true">Yahoo! Server is not responding!</string>
+    <string name="string_error_server" translatable="true">Parsing error! Sorry!</string>
+    <string name="string_status_unknown" translatable="true">We can\'t identify the problem, try again later?</string>
 </resources>

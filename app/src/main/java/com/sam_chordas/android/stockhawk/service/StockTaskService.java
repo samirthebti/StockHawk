@@ -6,6 +6,7 @@ import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.os.RemoteException;
+import android.support.annotation.IntDef;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GcmNetworkManager;
@@ -17,6 +18,8 @@ import com.sam_chordas.android.stockhawk.rest.Utils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.net.URLEncoder;
 
 import okhttp3.OkHttpClient;
@@ -39,6 +42,20 @@ public class StockTaskService extends GcmTaskService {
     private Context mContext;
     private StringBuilder mStoredSymbols = new StringBuilder();
     private boolean isUpdate;
+
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({STATUS_OK, STATUS_SERVER_ERROR, STATUS_NO_NETWORK, STATUS_ERROR_JSON,
+            STATUS_UNKNOWN, STATUS_SERVER_DOWN})
+    public @interface StockStatuses {
+    }
+
+    public static final int STATUS_OK = 0;
+    public static final int STATUS_ERROR_JSON = 1;
+    public static final int STATUS_SERVER_ERROR = 2;
+    public static final int STATUS_SERVER_DOWN = 3;
+    public static final int STATUS_NO_NETWORK = 4;
+    public static final int STATUS_UNKNOWN = 5;
+
 
     public StockTaskService() {
     }
