@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -89,13 +88,15 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                 new RecyclerViewItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View v, int position) {
-                        //TODO:
-                        Snackbar.make(v, "Clicked " + position, Snackbar.LENGTH_LONG)
-                                .setAction("ok", null)
-                                .setActionTextColor(getResources().getColor(R.color.material_blue_500))
-                                .show();
-                        Intent intent = new Intent(MyStocksActivity.this, StockItemActivity.class);
-                        startActivity(intent);
+
+                        if (mCursor.moveToPosition(position)) {
+                            String symbole = mCursor.getString(mCursor.getColumnIndex(QuoteColumns.SYMBOL));
+                            Intent intent = new Intent(MyStocksActivity.this, StockItemActivity.class);
+                            intent.putExtra("symbole", symbole);
+                            startActivity(intent);
+                        }
+
+
                         // do something on item click
                     }
                 }));

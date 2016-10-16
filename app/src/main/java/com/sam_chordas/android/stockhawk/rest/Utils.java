@@ -13,7 +13,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by sam_chordas on 10/8/15.
@@ -33,7 +37,7 @@ public class Utils {
     public static final String END_URL = "/chartdata;type=quote;range=1y/json";
 
 
-    public static String builHistoricalRequest(@NonNull String symbol, @NonNull String startDate, @NonNull String endDate) throws UnsupportedEncodingException {
+    public static String builHistoricalRequest(@NonNull String symbol) throws UnsupportedEncodingException {
         String stringBuilder = null;
         stringBuilder = BASE_URL + symbol + END_URL;
 
@@ -147,5 +151,32 @@ public class Utils {
             e.printStackTrace();
         }
         return builder.build();
+    }
+
+    public static long dateToTimeStimpe(@NonNull String s) {
+        Timestamp timestamp = null;
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+            Date parsedDate = dateFormat.parse(s);
+            timestamp = new java.sql.Timestamp(parsedDate.getTime());
+        } catch (Exception e) {
+            //this generic but you can control another types of exception
+            e.printStackTrace();
+
+        }
+        return timestamp.getTime();
+    }
+
+    public static long dateToTimestamp(String stringDate)
+            throws java.text.ParseException {
+
+        if (stringDate == null) {
+            return 0;
+        }
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = formatter.parse(stringDate);
+
+        return date.getTime();
     }
 }
