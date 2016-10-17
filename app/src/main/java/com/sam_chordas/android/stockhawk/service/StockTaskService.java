@@ -1,7 +1,9 @@
 package com.sam_chordas.android.stockhawk.service;
 
+import android.content.ContentProviderOperation;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -16,11 +18,14 @@ import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 import com.sam_chordas.android.stockhawk.rest.Utils;
 
+import org.json.JSONException;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -141,6 +146,7 @@ public class StockTaskService extends GcmTaskService {
             urlString = urlStringBuilder.toString();
             try {
                 getResponse = fetchData(urlString);
+                Log.d(LOG_TAG, "onRunTask: " + getResponse);
                 result = GcmNetworkManager.RESULT_SUCCESS;
                 try {
                     ContentValues contentValues = new ContentValues();
@@ -150,11 +156,21 @@ public class StockTaskService extends GcmTaskService {
                         mContext.getContentResolver().update(QuoteProvider.Quotes.CONTENT_URI, contentValues,
                                 null, null);
                     }
-                    mContext.getContentResolver().applyBatch(QuoteProvider.AUTHORITY,
-                            Utils.quoteJsonToContentVals(getResponse));
+                    ArrayList<ContentProviderOperation> batchOperations = Utils.quoteJsonToContentVals(getResponse);
+                    if ((batchOperations != null) && (batchOperations.size() != 0)) {
+                        mContext.getContentResolver().applyBatch(QuoteProvider.AUTHORITY, batchOperations);
+                    } else {
+                        Intent intent = new Intent();
+                        intent.setAction("com.sam_chordas.stockhawk.ui.MyStocksActivity.SOURCE.STOCK_NOT_FOUND");
+                        mContext.sendBroadcast(intent);
+                    }
+
                 } catch (RemoteException | OperationApplicationException e) {
                     Log.e(LOG_TAG, "Error applying batch insert", e);
                     Utils.setNetworkStatus(mContext, STATUS_ERROR_JSON);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+//                    Utils.setNetworkStatus(mContext, STATUS_ERROR_JSON);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -165,5 +181,4 @@ public class StockTaskService extends GcmTaskService {
 
         return result;
     }
-
 }

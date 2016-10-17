@@ -52,6 +52,13 @@
             android:authorities="com.sam_chordas.android.stockhawk.data.QuoteProvider"
             android:exported="false"
             />
+        <!--reciver for symbole not found-->
+        <receiver android:name=".service.NoStockService">
+            <intent-filter>
+                <action android:name="com.sam_chordas.stockhawk.ui.MyStocksActivity.SOURCE.STOCK_NOT_FOUND" />
+            </intent-filter>
+
+        </receiver>
 
         <activity
             android:name=".ui.StockItemActivity"

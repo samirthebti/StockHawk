@@ -43,7 +43,7 @@ public class Utils {
     private static final String JSON_SERIES = "series";
     private static final String JSON_DATE = "Date";
     private static final String JSON_CLOSE = "close";
-
+    public static final String NULL = "null";
     public static final String BASE_URL = "http://chartapi.finance.yahoo.com/instrument/1.0/";
     public static final String END_URL = "/chartdata;type=quote;range=1y/json";
 
@@ -57,34 +57,39 @@ public class Utils {
 
     public static boolean showPercent = true;
 
-    public static ArrayList quoteJsonToContentVals(String JSON) {
+    public static ArrayList<ContentProviderOperation> quoteJsonToContentVals(String JSON) throws JSONException {
         ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();
         JSONObject jsonObject = null;
         JSONArray resultsArray = null;
-        try {
-            jsonObject = new JSONObject(JSON);
-            if (jsonObject != null && jsonObject.length() != 0) {
-                jsonObject = jsonObject.getJSONObject("query");
-                int count = Integer.parseInt(jsonObject.getString("count"));
-                if (count == 1) {
-                    jsonObject = jsonObject.getJSONObject("results")
-                            .getJSONObject("quote");
-                    batchOperations.add(buildBatchOperation(jsonObject));
-                } else {
-                    resultsArray = jsonObject.getJSONObject("results").getJSONArray("quote");
+        ContentProviderOperation operation = null;
 
-                    if (resultsArray != null && resultsArray.length() != 0) {
-                        for (int i = 0; i < resultsArray.length(); i++) {
-                            jsonObject = resultsArray.getJSONObject(i);
-                            batchOperations.add(buildBatchOperation(jsonObject));
+        jsonObject = new JSONObject(JSON);
+
+        if (jsonObject != null && jsonObject.length() != 0) {
+            jsonObject = jsonObject.getJSONObject("query");
+            int count = Integer.parseInt(jsonObject.getString("count"));
+            if (count == 1) {
+                jsonObject = jsonObject.getJSONObject("results")
+                        .getJSONObject("quote");
+                operation = buildBatchOperation(jsonObject);
+                if (operation != null) {
+                    batchOperations.add(operation);
+                }
+            } else {
+                resultsArray = jsonObject.getJSONObject("results").getJSONArray("quote");
+
+                if (resultsArray != null && resultsArray.length() != 0) {
+                    for (int i = 0; i < resultsArray.length(); i++) {
+                        jsonObject = resultsArray.getJSONObject(i);
+                        operation = buildBatchOperation(jsonObject);
+                        if (operation != null) {
+                            batchOperations.add(operation);
                         }
                     }
                 }
             }
-        } catch (JSONException e) {
-            Log.e(LOG_TAG, "String to JSON failed: " + e);
-
         }
+
         return batchOperations;
     }
 
@@ -141,10 +146,11 @@ public class Utils {
         return change;
     }
 
-    public static ContentProviderOperation buildBatchOperation(JSONObject jsonObject) {
+    public static ContentProviderOperation buildBatchOperation(JSONObject jsonObject) throws JSONException {
         ContentProviderOperation.Builder builder = ContentProviderOperation.newInsert(
                 QuoteProvider.Quotes.CONTENT_URI);
-        try {
+
+        if (!(jsonObject.getString("Change").equals(NULL)) && !(jsonObject.getString("Bid").equals(NULL))) {
             String change = jsonObject.getString("Change");
             builder.withValue(QuoteColumns.SYMBOL, jsonObject.getString("symbol"));
             builder.withValue(QuoteColumns.BIDPRICE, truncateBidPrice(jsonObject.getString("Bid")));
@@ -158,8 +164,8 @@ public class Utils {
                 builder.withValue(QuoteColumns.ISUP, 1);
             }
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } else {
+            return null;
         }
         return builder.build();
     }
