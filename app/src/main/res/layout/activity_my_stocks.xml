@@ -10,7 +10,10 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
         android:visibility="visible"
+
         />
 
     <TextView
@@ -21,6 +24,8 @@
         android:layout_gravity="center"
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:gravity="center"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
         android:text="NO Data found"
         android:visibility="gone"
         tools:textAppearance="@style/TextAppearance.AppCompat.Display2"
