@@ -56,7 +56,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     private QuoteCursorAdapter mCursorAdapter;
     private Context mContext;
     private Cursor mCursor;
-    private boolean isConnected;
+
     private CoordinatorLayout coordinatorLayout;
     private int symbole;
     private RecyclerView recyclerView;
@@ -66,7 +66,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
-        isConnected = Utils.isNetworkAvailable(mContext);
+
         setContentView(R.layout.activity_my_stocks);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_content);
         // The intent service is for executing immediate pulls from the Yahoo API
@@ -75,7 +75,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         if (savedInstanceState == null) {
             // Run the initialize task service so that some stocks appear upon an empty database
             mServiceIntent.putExtra("tag", "init");
-            if (isConnected) {
+            if (Utils.isNetworkAvailable(mContext)) {
                 startService(mServiceIntent);
             } else {
                 Utils.setNetworkStatus(this, StockTaskService.STATUS_NO_NETWORK);
@@ -114,7 +114,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isConnected) {
+                if (Utils.isNetworkAvailable(mContext)) {
                     new Builder(mContext).title(R.string.symbol_search)
                             .content(R.string.content_test)
                             .inputType(InputType.TYPE_CLASS_TEXT)
@@ -156,7 +156,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         mItemTouchHelper.attachToRecyclerView(recyclerView);
 
         mTitle = getTitle();
-        if (isConnected) {
+        if (Utils.isNetworkAvailable(mContext)) {
             long period = 3600L;
             long flex = 10L;
             String periodicTag = "periodic";
