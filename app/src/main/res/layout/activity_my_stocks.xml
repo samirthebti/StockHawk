@@ -15,11 +15,15 @@
 
     <TextView
         android:id="@+id/emptydisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center|top"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:gravity="center"
         android:text="NO Data found"
         android:visibility="gone"
+        tools:textAppearance="@style/TextAppearance.AppCompat.Display2"
         />
 
     <android.support.design.widget.FloatingActionButton
@@ -27,7 +31,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/fab_margin"
+        android:contentDescription="@string/add_new_symbol_Description"
         android:src="@drawable/ic_add_white_24dp"
         fab:fab_colorNormal="@color/material_blue_500"
         fab:fab_colorPressed="@color/material_blue_600"
@@ -36,5 +41,6 @@
         fab:fab_type="normal"
         fab:layout_anchor="recycler_view"
         fab:layout_anchorGravity="bottom | end"
+
         />
 </android.support.design.widget.CoordinatorLayout>

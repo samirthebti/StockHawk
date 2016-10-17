@@ -13,10 +13,14 @@
     <string name="empty_stock_list">No Stocks Information Available</string>
     <string name="network_toast">Uh-oh! This app requires an internet connection</string>
     <string name="data_not_available" translatable="true">Stocks data not available, possible solution:\n</string>
-    <string name="string_status_ok" translatable="true">You need to add new stocks by clicking add button!</string>
-    <string name="string_status_no_network" translatable="true">You need to connect to internet to retrieve stock data!</string>
-    <string name="string_error_json" translatable="true">App Internal Error occurred! Sorry!</string>
-    <string name="string_server_down" translatable="true">Yahoo! Server is not responding!</string>
-    <string name="string_error_server" translatable="true">Parsing error! Sorry!</string>
-    <string name="string_status_unknown" translatable="true">We can\'t identify the problem, try again later?</string>
+    <string name="string_status_ok" translatable="true"> You need to add new stocks by clicking add button!</string>
+    <string name="string_status_no_network" translatable="true"> You need to connect to internet to retrieve stock data!</string>
+    <string name="string_error_json" translatable="true"> App Internal Error occurred! Sorry!</string>
+    <string name="string_server_down" translatable="true"> Yahoo! Server is not responding!</string>
+    <string name="string_error_server" translatable="true"> Parsing error! Sorry!</string>
+    <string name="string_status_unknown" translatable="true"> We can\'t identify the problem, try again later?</string>
+    <string name="nostockfound">No Stock Found</string>
+    <string name="add_new_symbol_Description">Add new Symbol</string>
+    <string name="stock_already_saved">This stock is already saved!</string>
+    <string name="add" translatable="false">add</string>
 </resources>

@@ -8,7 +8,6 @@ import android.os.Parcelable;
 import android.os.PersistableBundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -60,6 +59,7 @@ public class StockItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stock_item);
         symbolTextView = (TextView) findViewById(R.id.symbolename);
         symbolTextView.setText(mSymbole);
+        symbolTextView.setContentDescription(mSymbole);
 
         chart = (LineChart) findViewById(R.id.chart);
         client = new OkHttpClient();
@@ -84,7 +84,7 @@ public class StockItemActivity extends AppCompatActivity {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
-                Snackbar.make(findViewById(R.id.activity_stock_item), "Erreur while fetch Date", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(R.id.activity_stock_item), R.string.data_not_available, Snackbar.LENGTH_LONG).show();
             }
 
             @Override
@@ -113,17 +113,17 @@ public class StockItemActivity extends AppCompatActivity {
 
     private void plotData() {
 
-        // we need to run this coe in other thread becouase we can't plot
+        // we need to run this coe in other thread because we can't plot
         StockItemActivity.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 float i = 0;
                 for (Stock data : stocks) {
-                    Log.d(TAG, "onCreate: " + data.toString());
+
                     //turn your data into Entry objects
                     entriesLabel.add(data.getDate());
                     entries.add(new Entry(i, Float.valueOf(data.getClose())));
-                    Log.d(TAG, "run: " + data.getClose().toString());
+
                     i++;
                 }
                 // Config the chart

@@ -170,7 +170,7 @@ public class StockTaskService extends GcmTaskService {
                     Utils.setNetworkStatus(mContext, STATUS_ERROR_JSON);
                 } catch (JSONException e) {
                     e.printStackTrace();
-//                    Utils.setNetworkStatus(mContext, STATUS_ERROR_JSON);
+                    Utils.setNetworkStatus(mContext, STATUS_ERROR_JSON);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
