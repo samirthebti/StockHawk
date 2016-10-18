@@ -2,37 +2,66 @@
 <android.support.design.widget.CoordinatorLayout
     android:id="@+id/activity_stock_item"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+    android:background="@color/cardview_dark_background"
     tools:context="com.sam_chordas.android.stockhawk.ui.StockItemActivity"
     >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
 
-        <TextView
-            android:id="@+id/symbolename"
+        <android.support.v7.widget.CardView
+            android:id="@+id/symbol_textveiw"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="top|center"
-            android:text="@string/app_name"
-            android:textSize="24sp"
-            tools:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            />
+            android:layout_height="80dp"
+            app:cardBackgroundColor="@color/material_red_700"
+            tools:elevation="@dimen/sumbol_elevation"
+            >
 
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/chart"
+            <TextView
+                android:id="@+id/symbolename"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:gravity="top|center"
+                android:text="@string/app_name"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                tools:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            />
+            android:layout_below="@id/symbol_textveiw"
+            tools:elevation="@dimen/cardview_default_elevation"
+            tools:layout_marginBottom="@dimen/cardview_padding"
+            tools:layout_marginLeft="@dimen/cardview_padding"
+            tools:layout_marginRight="@dimen/cardview_padding"
+            >
 
-    </LinearLayout>
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/md_listitem_control_margin"
+
+                />
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>

@@ -21,11 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 
 import static com.sam_chordas.android.stockhawk.service.StockTaskService.STATUS_UNKNOWN;
@@ -171,31 +167,14 @@ public class Utils {
         return builder.build();
     }
 
-    public static long dateToTimeStimpe(@NonNull String s) {
-        Timestamp timestamp = null;
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-            Date parsedDate = dateFormat.parse(s);
-            timestamp = new java.sql.Timestamp(parsedDate.getTime());
-        } catch (Exception e) {
-            //this generic but you can control another types of exception
-            e.printStackTrace();
-
-        }
-        return timestamp.getTime();
-    }
-
-    public static long dateToTimestamp(String stringDate)
-            throws java.text.ParseException {
-
-        if (stringDate == null) {
-            return 0;
-        }
-
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = formatter.parse(stringDate);
-
-        return date.getTime();
+    public static String convertDate(@NonNull String s) {
+        StringBuilder outputFormattedDate = new StringBuilder();
+        outputFormattedDate.append(s.substring(6))
+                .append("/")
+                .append(s.substring(4, 6))
+                .append("/")
+                .append(s.substring(2, 4));
+        return outputFormattedDate.toString();
     }
 
     //check the network is availble or not

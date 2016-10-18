@@ -1,8 +1,6 @@
 package com.sam_chordas.android.stockhawk.ui;
 
 import android.graphics.Color;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.PersistableBundle;
@@ -17,7 +15,6 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.AxisValueFormatter;
 import com.sam_chordas.android.stockhawk.Model.Stock;
 import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.rest.Utils;
@@ -43,7 +40,7 @@ public class StockItemActivity extends AppCompatActivity {
     private List<String> entriesLabel = new ArrayList<>();
     private XAxis xAxis;
     private YAxis yAxis;
-    private MarkerView mv;
+
     private String mSymbole;
     private TextView symbolTextView;
 
@@ -58,12 +55,10 @@ public class StockItemActivity extends AppCompatActivity {
         symbolTextView = (TextView) findViewById(R.id.symbolename);
         symbolTextView.setText(mSymbole);
         symbolTextView.setContentDescription(mSymbole);
-
         chart = (LineChart) findViewById(R.id.chart);
         client = new OkHttpClient();
         xAxis = chart.getXAxis();
         yAxis = chart.getAxisLeft();
-        mv = new MarkerView(this, R.layout.layout_marker);
         getData();
     }
 
@@ -110,54 +105,37 @@ public class StockItemActivity extends AppCompatActivity {
     }
 
     private void plotData() {
-
         // we need to run this coe in other thread because we can't plot
         StockItemActivity.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                float i = 0;
+                int i = 0;
                 for (Stock data : stocks) {
-
                     //turn your data into Entry objects
-                    entriesLabel.add(data.getDate());
-                    entries.add(new Entry(i, Float.valueOf(data.getClose())));
-
+                    entriesLabel.add(Utils.convertDate(data.getDate()));
+                    float cls = Float.valueOf(data.getClose());
+                    entries.add(new Entry(cls, i));
                     i++;
                 }
                 // Config the chart
-                LineDataSet dataSet = new LineDataSet(entries, null);
-                dataSet.setHighlightEnabled(false);
-                dataSet.setDrawHighlightIndicators(true);
-                dataSet.setDrawFilled(true);
-                dataSet.setFillColor(getResources().getColor(R.color.material_green_700));
-                dataSet.setFillAlpha(1000);
-                LineData lineData = new LineData(dataSet);
-                chart.setData(lineData);
                 YAxis yAxisR = chart.getAxisRight();
                 yAxisR.setDrawLabels(false);
                 yAxis.setDrawGridLines(false);
                 xAxis.setPosition(XAxisPosition.BOTTOM);
-                xAxis.setTextSize(10f);
-                yAxisR.setTextColor(Color.RED);
-                xAxis.setTextColor(Color.RED);
-                xAxis.setDrawAxisLine(true);
-                xAxis.setDrawGridLines(false);
-                AxisValueFormatter xAxisFormatter = null;
-//                try {
-//                    xAxisFormatter = new HourAxisValueFormatter(Utils.dateToTimestamp(stocks.get(0).getDate()));
-//                } catch (ParseException e) {
-//                    e.printStackTrace();
-//                }
-                // Setup the marker
-
-                chart.setMarkerView(mv);
-                xAxis.setValueFormatter(xAxisFormatter);
-                chart.animateX(2000);
-                if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
-                    chart.setElevation(0.2f);
-                }
-
-                chart.invalidate();
+                xAxis.setTextSize(12f);
+                YAxis left = chart.getAxisLeft();
+                left.setEnabled(true);
+                chart.getAxisRight().setEnabled(false);
+                chart.getLegend().setTextSize(16f);
+                LineDataSet dataSet = new LineDataSet(entries, mSymbole);
+                LineData lineData = new LineData(entriesLabel, dataSet);
+                chart.setBackgroundColor(Color.WHITE);
+                dataSet.setHighlightEnabled(false);
+                dataSet.setDrawHighlightIndicators(false);
+                dataSet.setDrawFilled(true);
+                dataSet.setFillColor(getResources().getColor(R.color.material_green_700));
+                dataSet.setFillAlpha(1000);
+                chart.setData(lineData);
             }
         });
     }
