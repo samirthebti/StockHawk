@@ -36,6 +36,7 @@ public class StockWidgetService extends RemoteViewsService {
         public WidgetDataProvider(Context context, Intent mIntent) {
             this.mContext = context;
             this.appWidgetId = mIntent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+
         }
 
         @Override
@@ -95,10 +96,12 @@ public class StockWidgetService extends RemoteViewsService {
                             R.drawable.percent_change_pill_red);
                 }
                 Bundle bundle = new Bundle();
+                Log.d(TAG, "---------------------------> " + symbol);
                 bundle.putString(StockWidgetProvider.EXTRA_SYMBOL, symbol);
                 Intent intent = new Intent();
                 intent.putExtras(bundle);
                 remoteViews.setOnClickFillInIntent(R.id.list_item_quote, intent);
+
 
             }
             return remoteViews;

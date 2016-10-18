@@ -18,7 +18,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +28,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.MaterialDialog.Builder;
 import com.afollestad.materialdialogs.MaterialDialog.InputCallback;
+import com.facebook.stetho.Stetho;
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.PeriodicTask;
 import com.google.android.gms.gcm.Task;
@@ -44,10 +44,8 @@ import com.sam_chordas.android.stockhawk.service.StockTaskService;
 import com.sam_chordas.android.stockhawk.touch_helper.SimpleItemTouchHelperCallback;
 import com.sam_chordas.android.stockhawk.widget.StockWidgetProvider;
 
-
-import static com.github.mikephil.charting.charts.Chart.LOG_TAG;
-
 public class MyStocksActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, SharedPreferences.OnSharedPreferenceChangeListener {
+    public static final String INTENT_SYMBOLE_EXTRA = "symbole";
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -63,7 +61,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     private QuoteCursorAdapter mCursorAdapter;
     private Context mContext;
     private Cursor mCursor;
-
     private CoordinatorLayout coordinatorLayout;
     private int symbole;
     private RecyclerView recyclerView;
@@ -87,6 +84,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
             } else {
                 Utils.setNetworkStatus(this, StockTaskService.STATUS_NO_NETWORK);
             }
+            Stetho.initializeWithDefaults(this);
         }
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -103,7 +101,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                             symbole = mCursor.getColumnIndex(QuoteColumns.SYMBOL);
                             String currentSymbol = mCursor.getString(symbole);
                             Intent intent = new Intent(MyStocksActivity.this, StockItemActivity.class);
-                            intent.putExtra("symbole", currentSymbol);
+                            intent.putExtra(INTENT_SYMBOLE_EXTRA, currentSymbol);
                             startActivity(intent);
                         }
 
@@ -318,14 +316,10 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     }
 
     private void updateStocksWidget() {
-        Log.d(LOG_TAG, "updateStocksWidget: ");
+
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(mContext.getApplicationContext());
         int[] ids = appWidgetManager.getAppWidgetIds(new ComponentName(this, StockWidgetProvider.class));
         if (ids.length > 0) {
-            /**
-             * notifyAppWidgetViewDataChanged() method will call the onDataSetChanged method of the
-             * #{@link com.myapps.stockhawk.widget.StockWidgetService.StockRVFactory} class.
-             */
             appWidgetManager.notifyAppWidgetViewDataChanged(ids, R.id.widget);
         }
     }

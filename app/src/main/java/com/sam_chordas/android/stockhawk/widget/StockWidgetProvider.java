@@ -13,7 +13,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.sam_chordas.android.stockhawk.R;
-import com.sam_chordas.android.stockhawk.rest.Utils;
+import com.sam_chordas.android.stockhawk.ui.MyStocksActivity;
 import com.sam_chordas.android.stockhawk.ui.StockItemActivity;
 
 /**
@@ -21,22 +21,17 @@ import com.sam_chordas.android.stockhawk.ui.StockItemActivity;
  */
 public class StockWidgetProvider extends AppWidgetProvider {
     public static final String INTENT_ACTION = "com.sam_chordas.stockhawk.widget.StockWidgetProvider.INTENT_ACTION";
-    public static final String EXTRA_SYMBOL = "com.sam_chordas.stockhawk.widget.StockWidgetProvider.EXTRA_SYMBOL";
     public static final String TAG = StockWidgetProvider.class.getSimpleName();
+    public static final String EXTRA_SYMBOL = "com.sam_chordas.stockhawk.widget.StockWidgetProvider.EXTRA_SYMBOL";
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
-        if (intent.getAction().equals(Utils.ACTION_DATA_UPDATED)) {
-            Log.d(TAG, "onReceive: ");
-            /**
-             * Matches our own created intent, and thus helps in showing data over time.
-             * Can add other methods later too in the same receiver.
-             */
-
-            String symbol = intent.getStringExtra(INTENT_ACTION);
+        if (intent.getAction().equals(INTENT_ACTION)) {
+            String symbol = intent.getStringExtra(EXTRA_SYMBOL);
             Intent showHistoricalData = new Intent(context, StockItemActivity.class);
-            showHistoricalData.putExtra("symbol_name", symbol);
+            showHistoricalData.putExtra(MyStocksActivity.INTENT_SYMBOLE_EXTRA, symbol);
             showHistoricalData.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(showHistoricalData);
         }
@@ -57,8 +52,10 @@ public class StockWidgetProvider extends AppWidgetProvider {
             remoteViews.setEmptyView(R.id.widget_list, R.id.widget_empty);
             Intent openSymbol = new Intent(context, StockWidgetProvider.class);
             openSymbol.setAction(StockWidgetProvider.INTENT_ACTION);
+
             openSymbol.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
             intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
+
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, openSymbol,
                     PendingIntent.FLAG_UPDATE_CURRENT);
 

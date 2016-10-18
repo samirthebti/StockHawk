@@ -21,11 +21,9 @@ import com.github.mikephil.charting.formatter.AxisValueFormatter;
 import com.sam_chordas.android.stockhawk.Model.Stock;
 import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.rest.Utils;
-import com.sam_chordas.android.stockhawk.utils.HourAxisValueFormatter;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,8 +51,8 @@ public class StockItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle bundle = getIntent().getExtras();
-        mSymbole = bundle.getString("symbole");
+//        Bundle bundle = getIntent().getExtras();
+        mSymbole = getIntent().getStringExtra(MyStocksActivity.INTENT_SYMBOLE_EXTRA);
 
         setContentView(R.layout.activity_stock_item);
         symbolTextView = (TextView) findViewById(R.id.symbolename);
@@ -145,11 +143,11 @@ public class StockItemActivity extends AppCompatActivity {
                 xAxis.setDrawAxisLine(true);
                 xAxis.setDrawGridLines(false);
                 AxisValueFormatter xAxisFormatter = null;
-                try {
-                    xAxisFormatter = new HourAxisValueFormatter(Utils.dateToTimestamp(stocks.get(0).getDate()));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    xAxisFormatter = new HourAxisValueFormatter(Utils.dateToTimestamp(stocks.get(0).getDate()));
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
                 // Setup the marker
 
                 chart.setMarkerView(mv);
