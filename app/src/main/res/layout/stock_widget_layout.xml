@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout android:id="@+id/widget"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,7 +10,7 @@
     >
 
     <FrameLayout
-        android:id="@+id/widget"
+
         android:layout_width="match_parent"
         android:layout_height="@dimen/abc_action_bar_default_height_material"
         android:background="@color/md_material_blue_600"
@@ -25,6 +26,7 @@
     </FrameLayout>
 
     <FrameLayout
+
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

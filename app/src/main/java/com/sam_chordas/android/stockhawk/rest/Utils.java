@@ -37,6 +37,7 @@ public class Utils {
 
     private static String LOG_TAG = Utils.class.getSimpleName();
     public static final String BASE_API_URL = "https://query.yahooapis.com/v1/public/yql?q=";
+    public static final String ACTION_DATA_UPDATED = "com.sam_chordas.Stockhawk.ACTION_DATA_UPDATED";
 
     public static final String FINALISER_API_URL = "&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables."
             + "org%2Falltableswithkeys&callback=";

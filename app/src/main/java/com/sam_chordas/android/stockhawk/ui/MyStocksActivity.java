@@ -1,6 +1,8 @@
 package com.sam_chordas.android.stockhawk.ui;
 
 import android.app.LoaderManager;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -16,6 +18,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,6 +42,10 @@ import com.sam_chordas.android.stockhawk.rest.Utils;
 import com.sam_chordas.android.stockhawk.service.StockIntentService;
 import com.sam_chordas.android.stockhawk.service.StockTaskService;
 import com.sam_chordas.android.stockhawk.touch_helper.SimpleItemTouchHelperCallback;
+import com.sam_chordas.android.stockhawk.widget.StockWidgetProvider;
+
+
+import static com.github.mikephil.charting.charts.Chart.LOG_TAG;
 
 public class MyStocksActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -240,6 +247,15 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         mCursorAdapter.swapCursor(data);
         mCursor = data;
         setEmptyView();
+        updateStocksWidget();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mCursor != null) {
+            mCursor.close();
+        }
+        super.onDestroy();
     }
 
     @Override
@@ -299,6 +315,19 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
 
         }
 
+    }
+
+    private void updateStocksWidget() {
+        Log.d(LOG_TAG, "updateStocksWidget: ");
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(mContext.getApplicationContext());
+        int[] ids = appWidgetManager.getAppWidgetIds(new ComponentName(this, StockWidgetProvider.class));
+        if (ids.length > 0) {
+            /**
+             * notifyAppWidgetViewDataChanged() method will call the onDataSetChanged method of the
+             * #{@link com.myapps.stockhawk.widget.StockWidgetService.StockRVFactory} class.
+             */
+            appWidgetManager.notifyAppWidgetViewDataChanged(ids, R.id.widget);
+        }
     }
 
 

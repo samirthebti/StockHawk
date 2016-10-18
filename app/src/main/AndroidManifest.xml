@@ -33,10 +33,6 @@
         </activity>
 
         <service
-            android:name=".service.HistoricalStockIntentService"
-            android:exported="true"
-            />
-        <service
             android:name=".service.StockTaskService"
             android:exported="true"
             android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE"
@@ -50,7 +46,7 @@
         <provider
             android:name=".data.generated.QuoteProvider"
             android:authorities="com.sam_chordas.android.stockhawk.data.QuoteProvider"
-            android:exported="false"
+            android:exported="true"
             />
         <!-- reciver for symbole not found -->
         <receiver android:name=".service.NoStockService">
@@ -58,6 +54,7 @@
                 <action android:name="com.sam_chordas.stockhawk.ui.MyStocksActivity.SOURCE.STOCK_NOT_FOUND" />
             </intent-filter>
         </receiver>
+
 
         <activity
             android:name=".ui.StockItemActivity"
@@ -68,19 +65,20 @@
                 android:value=".ui.MyStocksActivity"
                 />
         </activity>
-
-        <receiver android:name=".widjet.StockWidgetProvider">
+        <!--widget service-->
+        <receiver android:name=".widget.StockWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.sam_chordas.Stockhawk.ACTION_DATA_UPDATED" />
-
             </intent-filter>
-
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/new_app_widget_info"
                 />
         </receiver>
+        <service
+            android:name=".widget.StockWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
+            />
     </application>
 
 </manifest>
