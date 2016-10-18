@@ -54,9 +54,7 @@ public class StockWidgetProvider extends AppWidgetProvider {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.stock_widget_layout);
 
             remoteViews.setRemoteAdapter(appWidgetIds[i], R.id.widget_list, intent);
-            remoteViews.setEmptyView(R.id.widget, R.id.widget_empty);
-
-
+            remoteViews.setEmptyView(R.id.widget_list, R.id.widget_empty);
             Intent openSymbol = new Intent(context, StockWidgetProvider.class);
             openSymbol.setAction(StockWidgetProvider.INTENT_ACTION);
             openSymbol.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
@@ -64,11 +62,9 @@ public class StockWidgetProvider extends AppWidgetProvider {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, openSymbol,
                     PendingIntent.FLAG_UPDATE_CURRENT);
 
-            remoteViews.setPendingIntentTemplate(R.id.widget, pendingIntent);
+            remoteViews.setPendingIntentTemplate(R.id.widget_list, pendingIntent);
 
             appWidgetManager.updateAppWidget(appWidgetIds[i], remoteViews);
-
-
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
 
@@ -87,7 +83,7 @@ public class StockWidgetProvider extends AppWidgetProvider {
      * @param views RemoteViews to set the RemoteAdapter
      */
     @SuppressWarnings("deprecation")
-    private static void setRemoteAdapterV11(Context context, @NonNull final RemoteViews views ,int appWidgetIds) {
+    private static void setRemoteAdapterV11(Context context, @NonNull final RemoteViews views, int appWidgetIds) {
         views.setRemoteAdapter(appWidgetIds, R.id.widget_list,
                 new Intent(context, StockWidgetService.class));
     }
