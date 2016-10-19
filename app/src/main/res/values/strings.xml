@@ -1,34 +1,28 @@
 <resources>
-    <string name="app_name">Stock Hawk</string>
-
-    <string name="action_example">Example action</string>
-
-    <string name="action_settings">Settings</string>
-    <string name="action_change_units">Change Units</string>
-    <string name="symbol_search">Symbol Search</string>
-    <string name="content_test">Search for a Stock Symbol</string>
-    <string name="input_hint">FB</string>
+    <string name="app_name" translatable="false">Stock Hawk</string>
+    <string name="action_settings" translatable="true">Settings</string>
+    <string name="action_change_units" translatable="true">Change Units</string>
+    <string name="symbol_search" translatable="true">Symbol Search</string>
+    <string name="content_test" translatable="true">Search for a Stock Symbol</string>
+    <string name="input_hint" translatable="false">FB</string>
     <string name="input_prefill"></string>
     <string name="status_shared_pref" translatable="false">status</string>
-    <string name="empty_stock_list">No Stocks Information Available</string>
-    <string name="network_toast">Uh-oh! This app requires an internet connection</string>
-    <string name="data_not_available" translatable="true">Stocks data not available, possible solution:\n</string>
+    <string name="empty_stock_list" translatable="true">No Stocks Information Available</string>
+    <string name="network_toast" translatable="true">Uh-oh! This app requires an internet connection</string>
     <string name="string_status_ok" translatable="true"> You need to add new stocks by clicking add button!</string>
     <string name="string_status_no_network" translatable="true"> You need to connect to internet to retrieve stock data!</string>
     <string name="string_error_json" translatable="true"> App Internal Error occurred! Sorry!</string>
     <string name="string_server_down" translatable="true"> Yahoo! Server is not responding!</string>
     <string name="string_error_server" translatable="true"> Parsing error! Sorry!</string>
     <string name="string_status_unknown" translatable="true"> We can\'t identify the problem, try again later?</string>
-    <string name="nostockfound">No Stock Found</string>
-    <string name="add_new_symbol_Description">Add new Symbol</string>
-    <string name="stock_already_saved">This stock is already saved!</string>
+    <string name="nostockfound" translatable="true">No Stock Found</string>
+    <string name="add_new_symbol_Description" translatable="true">Add new Symbol</string>
+    <string name="stock_already_saved" translatable="true">This stock is already saved!</string>
     <string name="add" translatable="false">add</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
     <string name="symbol_norfound">"Sorry This Information Not Available Now ! "</string>
     <string name="graph_content_description" translatable="true">Graph showing prices of the stock over time!</string>
     <string name="list_stocks" translatable="true">List of Stocks</string>
-    <string name="fab_button_content_description" translatable="true">Button to add new stock through its symbol.</string>
-    <string name="periodic">periodic</string>
+    <string name="periodic" translatable="false">periodic</string>
+    <string name="no_data_found">NO Data found</string>
 
 </resources>

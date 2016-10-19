@@ -6,7 +6,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:background="@color/cardview_dark_background"
     tools:context="com.sam_chordas.android.stockhawk.ui.StockItemActivity"
     >
@@ -23,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             app:cardBackgroundColor="@color/md_material_blue_800"
-            tools:elevation="@dimen/sumbol_elevation"
+            tools:elevation="@dimen/card_elevation"
+
             >
 
             <TextView
@@ -34,6 +34,12 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 android:gravity="top|center"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
                 android:text="@string/app_name"
                 android:textColor="@android:color/white"
                 android:textSize="24sp"
@@ -48,8 +54,10 @@
             android:layout_below="@id/symbol_textveiw"
             tools:elevation="@dimen/cardview_default_elevation"
             tools:layout_marginBottom="@dimen/cardview_padding"
-            tools:layout_marginLeft="@dimen/cardview_padding"
+
             tools:layout_marginRight="@dimen/cardview_padding"
+
+            tools:layout_marginEnd="@dimen/cardview_padding"
             >
 
             <com.github.mikephil.charting.charts.LineChart
@@ -57,7 +65,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/graph_content_description"
-                android:padding="@dimen/md_listitem_control_margin"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingStart="@dimen/activity_horizontal_margin"
                 />
         </android.support.v7.widget.CardView>
 
