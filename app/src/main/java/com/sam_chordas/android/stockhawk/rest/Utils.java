@@ -24,7 +24,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 
-import static com.sam_chordas.android.stockhawk.service.StockTaskService.STATUS_UNKNOWN;
+import static com.sam_chordas.android.stockhawk.service.StockTaskService.STATUS_OK;
 
 /**
  * Created by sam_chordas on 10/8/15.
@@ -199,6 +199,6 @@ public class Utils {
     @StockTaskService.StockStatuses
     int getNetworkStatus(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return preferences.getInt(context.getString(R.string.status_shared_pref), STATUS_UNKNOWN);
+        return preferences.getInt(context.getString(R.string.status_shared_pref), STATUS_OK);
     }
 }
