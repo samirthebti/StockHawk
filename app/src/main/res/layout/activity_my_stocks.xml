@@ -13,6 +13,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingStart="@dimen/activity_horizontal_margin"
         android:visibility="visible"
+        android:contentDescription="@string/list_stocks"
 
         />
 
@@ -28,6 +29,7 @@
         android:paddingStart="@dimen/activity_horizontal_margin"
         android:text="NO Data found"
         android:visibility="gone"
+        android:contentDescription="@string/nostockfound"
         tools:textAppearance="@style/TextAppearance.AppCompat.Display2"
         />
 
@@ -46,6 +48,7 @@
         fab:fab_type="normal"
         fab:layout_anchor="recycler_view"
         fab:layout_anchorGravity="bottom | end"
+
 
         />
 </android.support.design.widget.CoordinatorLayout>

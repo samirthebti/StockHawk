@@ -164,7 +164,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         if (Utils.isNetworkAvailable(mContext)) {
             long period = 3600L;
             long flex = 10L;
-            String periodicTag = "periodic";
+            String periodicTag = getString(R.string.periodic);
 
             // create a periodic task to pull stocks once every hour after the app has been opened. This
             // is so Widget data stays up to date.

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -23,7 +22,7 @@ public class StockWidgetService extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        Log.d(TAG, "onGetViewFactory: ");
+
         return new WidgetDataProvider(this.getApplicationContext(), intent);
 
     }
@@ -41,7 +40,7 @@ public class StockWidgetService extends RemoteViewsService {
 
         @Override
         public void onCreate() {
-            Log.d(TAG, "onCreate: ");
+
             mCursor = getContentResolver().query(Quotes.CONTENT_URI,
                     new String[] {QuoteColumns._ID,
                             QuoteColumns.SYMBOL,
@@ -96,7 +95,7 @@ public class StockWidgetService extends RemoteViewsService {
                             R.drawable.percent_change_pill_red);
                 }
                 Bundle bundle = new Bundle();
-                Log.d(TAG, "---------------------------> " + symbol);
+
                 bundle.putString(StockWidgetProvider.EXTRA_SYMBOL, symbol);
                 Intent intent = new Intent();
                 intent.putExtras(bundle);

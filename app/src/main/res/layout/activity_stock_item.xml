@@ -22,7 +22,7 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            app:cardBackgroundColor="@color/material_red_700"
+            app:cardBackgroundColor="@color/md_material_blue_800"
             tools:elevation="@dimen/sumbol_elevation"
             >
 
@@ -56,8 +56,8 @@
                 android:id="@+id/chart"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:contentDescription="@string/graph_content_description"
                 android:padding="@dimen/md_listitem_control_margin"
-
                 />
         </android.support.v7.widget.CardView>
 

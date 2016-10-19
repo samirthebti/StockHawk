@@ -25,4 +25,10 @@
     <string name="add" translatable="false">add</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="symbol_norfound">"Sorry This Information Not Available Now ! "</string>
+    <string name="graph_content_description" translatable="true">Graph showing prices of the stock over time!</string>
+    <string name="list_stocks" translatable="true">List of Stocks</string>
+    <string name="fab_button_content_description" translatable="true">Button to add new stock through its symbol.</string>
+    <string name="periodic">periodic</string>
+
 </resources>

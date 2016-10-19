@@ -77,7 +77,7 @@ public class StockItemActivity extends AppCompatActivity {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
-                Snackbar.make(findViewById(R.id.activity_stock_item), R.string.data_not_available, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(R.id.activity_stock_item), R.string.symbol_norfound, Snackbar.LENGTH_LONG).show();
             }
 
             @Override
@@ -130,11 +130,13 @@ public class StockItemActivity extends AppCompatActivity {
                 LineDataSet dataSet = new LineDataSet(entries, mSymbole);
                 LineData lineData = new LineData(entriesLabel, dataSet);
                 chart.setBackgroundColor(Color.WHITE);
-                dataSet.setHighlightEnabled(false);
-                dataSet.setDrawHighlightIndicators(false);
                 dataSet.setDrawFilled(true);
+                dataSet.setDrawValues(true);
+                dataSet.setDrawCircles(false);
+                chart.setClickable(true);
                 dataSet.setFillColor(getResources().getColor(R.color.material_green_700));
                 dataSet.setFillAlpha(1000);
+                chart.animateX(3000);
                 chart.setData(lineData);
             }
         });
