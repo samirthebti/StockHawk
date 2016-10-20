@@ -18,12 +18,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.InputType;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.MaterialDialog.Builder;
@@ -46,6 +44,7 @@ import com.sam_chordas.android.stockhawk.widget.StockWidgetProvider;
 
 public class MyStocksActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, SharedPreferences.OnSharedPreferenceChangeListener {
     public static final String INTENT_SYMBOLE_EXTRA = "symbole";
+    public static final int SYMBOL_LENGHT = 6;
 
 
     private CharSequence mTitle;
@@ -59,6 +58,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     private int symbole;
     private RecyclerView recyclerView;
     private TextView emptyTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,22 +116,29 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                             .input(R.string.input_hint, R.string.input_prefill, new InputCallback() {
                                 @Override
                                 public void onInput(MaterialDialog dialog, CharSequence input) {
+                                    String inputString = input.toString();
+                                    if (inputString.length() <= SYMBOL_LENGHT && Utils.inputFormatterChecker(inputString)) {
 
-                                    Cursor c = getContentResolver().query(Quotes.CONTENT_URI,
-                                            new String[] {QuoteColumns.SYMBOL}, QuoteColumns.SYMBOL + "= ?",
-                                            new String[] {input.toString()}, null);
-                                    if (c.getCount() != 0) {
-                                        Toast toast =
-                                                Toast.makeText(MyStocksActivity.this, R.string.stock_already_saved,
-                                                        Toast.LENGTH_LONG);
-                                        toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
-                                        toast.show();
-                                        return;
+                                        Cursor c = getContentResolver().query(Quotes.CONTENT_URI,
+                                                new String[] {QuoteColumns.SYMBOL}, QuoteColumns.SYMBOL + "= ?",
+                                                new String[] {inputString.toLowerCase()}, null);
+                                        if (c.getCount() != 0) {
+
+                                            Snackbar.make(coordinatorLayout, R.string.stock_already_saved,
+                                                    Snackbar.LENGTH_LONG).show();
+//
+                                            return;
+                                        } else {
+                                            mServiceIntent.putExtra("tag", getString(R.string.add));
+                                            mServiceIntent.putExtra("symbol", inputString);
+                                            startService(mServiceIntent);
+                                            Snackbar.make(coordinatorLayout, inputString + getString(R.string.stock_added),
+                                                    Snackbar.LENGTH_LONG).
+                                                    show();
+                                        }
                                     } else {
-                                        // Add the stock to DB
-                                        mServiceIntent.putExtra("tag", getString(R.string.add));
-                                        mServiceIntent.putExtra("symbol", input.toString());
-                                        startService(mServiceIntent);
+                                        Snackbar.make(coordinatorLayout, R.string.stock_size_msg,
+                                                Snackbar.LENGTH_LONG).show();
                                     }
                                 }
                             })

@@ -201,4 +201,8 @@ public class Utils {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getInt(context.getString(R.string.status_shared_pref), STATUS_OK);
     }
+
+    public static boolean inputFormatterChecker(@NonNull String s) {
+        return s.matches("[a-zA-Z]+");
+    }
 }

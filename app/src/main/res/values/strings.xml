@@ -23,7 +23,9 @@
     <string name="graph_content_description" translatable="true">Graph showing prices of the stock over time!</string>
     <string name="list_stocks" translatable="true">List of Stocks</string>
     <string name="periodic" translatable="false">periodic</string>
-    <string name="no_data_found">NO Data found</string>
+    <string name="no_data_found" translatable="true">NO Data found</string>
     <string name="change_text_app">100%</string>
+    <string name="stock_size_msg" translatable="true">Input Size Must be As Max 6 Character</string>
+    <string name="stock_added" translatable="true">"Added ! "</string>
 
 </resources>
