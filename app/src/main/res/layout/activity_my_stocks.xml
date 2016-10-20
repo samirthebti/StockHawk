@@ -10,10 +10,10 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:contentDescription="@string/list_stocks"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingStart="@dimen/activity_horizontal_margin"
         android:visibility="visible"
-        android:contentDescription="@string/list_stocks"
 
         />
 
@@ -24,12 +24,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="@dimen/activity_horizontal_margin"
+        android:contentDescription="@string/nostockfound"
         android:gravity="center"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingStart="@dimen/activity_horizontal_margin"
         android:text="@string/no_data_found"
         android:visibility="gone"
-        android:contentDescription="@string/nostockfound"
         tools:textAppearance="@style/TextAppearance.AppCompat.Display2"
         />
 

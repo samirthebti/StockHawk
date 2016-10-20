@@ -6,10 +6,10 @@
     android:layout_height="72dp"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingEnd="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingStart="16dp"
+    android:paddingEnd="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_vertical_margin"
+    android:paddingStart="@dimen/activity_vertical_margin"
     >
 
     <TextView
@@ -30,7 +30,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="end"
+
         >
 
         <TextView
@@ -38,9 +38,9 @@
             style="@style/BidPriceTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingEnd="10sp"
-            android:paddingRight="10sp"
-            tools:text="1000.00"
+            android:paddingEnd="@dimen/price_padding"
+            android:paddingRight="@dimen/price_padding"
+
             />
 
         <TextView
@@ -49,11 +49,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/percent_change_pill"
-            android:paddingEnd="3dp"
-            android:paddingLeft="3dp"
-            android:paddingRight="3dp"
-            android:paddingStart="3dp"
-            tools:text="100%"
+            android:paddingEnd="@dimen/change_padding"
+            android:paddingLeft="@dimen/change_padding"
+            android:paddingRight="@dimen/change_padding"
+            android:paddingStart="@dimen/change_padding"
+            tools:text="@string/change_text_app"
             />
     </LinearLayout>
 </LinearLayout>

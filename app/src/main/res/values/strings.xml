@@ -24,5 +24,6 @@
     <string name="list_stocks" translatable="true">List of Stocks</string>
     <string name="periodic" translatable="false">periodic</string>
     <string name="no_data_found">NO Data found</string>
+    <string name="change_text_app">100%</string>
 
 </resources>

@@ -12,4 +12,9 @@ Refer to App Widget Documentation for margin information
 http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     -->
     <dimen name="widget_margin">8dp</dimen>
+    <dimen name="card_height">80dp</dimen>
+    <dimen name="symbol_text_size">24sp</dimen>
+    <dimen name="layout_symbol_item">72dp</dimen>
+    <dimen name="change_padding">3dp</dimen>
+    <dimen name="price_padding">10sp</dimen>
 </resources>

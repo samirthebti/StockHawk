@@ -47,13 +47,7 @@ import com.sam_chordas.android.stockhawk.widget.StockWidgetProvider;
 public class MyStocksActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, SharedPreferences.OnSharedPreferenceChangeListener {
     public static final String INTENT_SYMBOLE_EXTRA = "symbole";
 
-    /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
 
-    /**
-     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
-     */
     private CharSequence mTitle;
     private Intent mServiceIntent;
     private ItemTouchHelper mItemTouchHelper;
@@ -73,8 +67,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
 
         setContentView(R.layout.activity_my_stocks);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_content);
-        // The intent service is for executing immediate pulls from the Yahoo API
-        // GCMTaskService can only schedule tasks, they cannot execute immediately
+
         mServiceIntent = new Intent(this, StockIntentService.class);
         if (savedInstanceState == null) {
             // Run the initialize task service so that some stocks appear upon an empty database
@@ -97,7 +90,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                     public void onItemClick(View v, int position) {
 
                         if (mCursor.moveToPosition(position)) {
-
                             symbole = mCursor.getColumnIndex(QuoteColumns.SYMBOL);
                             String currentSymbol = mCursor.getString(symbole);
                             Intent intent = new Intent(MyStocksActivity.this, StockItemActivity.class);
@@ -105,8 +97,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                             startActivity(intent);
                         }
 
-
-                        // do something on item click
                     }
                 }));
 
@@ -126,8 +116,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                             .input(R.string.input_hint, R.string.input_prefill, new InputCallback() {
                                 @Override
                                 public void onInput(MaterialDialog dialog, CharSequence input) {
-                                    // On FAB click, receive user input. Make sure the stock doesn't already exist
-                                    // in the DB and proceed accordingly
+
                                     Cursor c = getContentResolver().query(Quotes.CONTENT_URI,
                                             new String[] {QuoteColumns.SYMBOL}, QuoteColumns.SYMBOL + "= ?",
                                             new String[] {input.toString()}, null);
@@ -166,8 +155,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
             long flex = 10L;
             String periodicTag = getString(R.string.periodic);
 
-            // create a periodic task to pull stocks once every hour after the app has been opened. This
-            // is so Widget data stays up to date.
             PeriodicTask periodicTask = new PeriodicTask.Builder()
                     .setService(StockTaskService.class)
                     .setPeriod(period)
@@ -176,8 +163,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                     .setRequiredNetwork(Task.NETWORK_STATE_CONNECTED)
                     .setRequiresCharging(false)
                     .build();
-            // Schedule task with tag "periodic." This ensure that only the stocks present in the DB
-            // are updated.
+
             GcmNetworkManager.getInstance(this).schedule(periodicTask);
         }
     }
@@ -190,9 +176,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
     }
 
-    public void networkToast() {
-        Toast.makeText(mContext, getString(R.string.network_toast), Toast.LENGTH_SHORT).show();
-    }
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
@@ -210,18 +193,15 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
 
         if (id == R.id.action_change_units) {
-            // this is for changing stock changes from percent value to dollar value
+
             Utils.showPercent = !Utils.showPercent;
             this.getContentResolver().notifyChange(QuoteProvider.Quotes.CONTENT_URI, null);
         }
@@ -231,7 +211,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        // This narrows the return to only the stocks that are most current.
+
         return new CursorLoader(this, QuoteProvider.Quotes.CONTENT_URI,
                 new String[] {QuoteColumns._ID, QuoteColumns.SYMBOL, QuoteColumns.BIDPRICE,
                         QuoteColumns.PERCENT_CHANGE, QuoteColumns.CHANGE, QuoteColumns.ISUP},

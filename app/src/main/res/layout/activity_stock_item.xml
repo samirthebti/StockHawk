@@ -20,7 +20,7 @@
             android:id="@+id/symbol_textveiw"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="@dimen/card_height"
             app:cardBackgroundColor="@color/md_material_blue_800"
             tools:elevation="@dimen/card_elevation"
 
@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:gravity="top|center"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingEnd="@dimen/activity_horizontal_margin"
@@ -42,7 +42,7 @@
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:text="@string/app_name"
                 android:textColor="@android:color/white"
-                android:textSize="24sp"
+                android:textSize="@dimen/symbol_text_size"
                 tools:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 />
         </android.support.v7.widget.CardView>
@@ -55,9 +55,9 @@
             tools:elevation="@dimen/cardview_default_elevation"
             tools:layout_marginBottom="@dimen/cardview_padding"
 
-            tools:layout_marginRight="@dimen/cardview_padding"
-
             tools:layout_marginEnd="@dimen/cardview_padding"
+
+            tools:layout_marginRight="@dimen/cardview_padding"
             >
 
             <com.github.mikephil.charting.charts.LineChart
