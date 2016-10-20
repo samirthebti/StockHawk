@@ -117,7 +117,7 @@ public class Utils {
         {
             Log.e(LOG_TAG, "String to JSON failed: " + e);
         }
-        Log.d(LOG_TAG, "getHestoricalData: " + stocks.toString());
+
         return stocks;
     }
 
@@ -177,7 +177,7 @@ public class Utils {
         return outputFormattedDate.toString();
     }
 
-    //check the network is availble or not
+    //check the network is available
     static public boolean isNetworkAvailable(Context c) {
         ConnectivityManager cm =
                 (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);

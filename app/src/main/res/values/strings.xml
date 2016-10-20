@@ -8,7 +8,6 @@
     <string name="input_prefill"></string>
     <string name="status_shared_pref" translatable="false">status</string>
     <string name="empty_stock_list" translatable="true">No Stocks Information Available</string>
-    <string name="network_toast" translatable="true">Uh-oh! This app requires an internet connection</string>
     <string name="string_status_ok" translatable="true"> You need to add new stocks by clicking add button!</string>
     <string name="string_status_no_network" translatable="true"> You need to connect to internet to retrieve stock data!</string>
     <string name="string_error_json" translatable="true"> App Internal Error occurred! Sorry!</string>
@@ -24,7 +23,6 @@
     <string name="list_stocks" translatable="true">List of Stocks</string>
     <string name="periodic" translatable="false">periodic</string>
     <string name="no_data_found" translatable="true">NO Data found</string>
-    <string name="change_text_app">100%</string>
     <string name="stock_size_msg" translatable="true">Input Size Must be As Max 6 Character</string>
     <string name="stock_added" translatable="true">"Added ! "</string>
 

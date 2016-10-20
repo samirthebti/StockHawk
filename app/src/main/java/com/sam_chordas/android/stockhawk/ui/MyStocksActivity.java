@@ -69,9 +69,8 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_content);
 
         mServiceIntent = new Intent(this, StockIntentService.class);
+        mServiceIntent.putExtra("tag", "init");
         if (savedInstanceState == null) {
-            // Run the initialize task service so that some stocks appear upon an empty database
-            mServiceIntent.putExtra("tag", "init");
             if (Utils.isNetworkAvailable(mContext)) {
                 startService(mServiceIntent);
             } else {
@@ -79,6 +78,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
             }
             Stetho.initializeWithDefaults(this);
         }
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
@@ -117,11 +117,14 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                                 @Override
                                 public void onInput(MaterialDialog dialog, CharSequence input) {
                                     String inputString = input.toString();
+
+                                    // check  Stock input format
                                     if (inputString.length() <= SYMBOL_LENGHT && Utils.inputFormatterChecker(inputString)) {
 
                                         Cursor c = getContentResolver().query(Quotes.CONTENT_URI,
                                                 new String[] {QuoteColumns.SYMBOL}, QuoteColumns.SYMBOL + "= ?",
                                                 new String[] {inputString.toLowerCase()}, null);
+
                                         if (c.getCount() != 0) {
 
                                             Snackbar.make(coordinatorLayout, R.string.stock_already_saved,
@@ -225,6 +228,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                 QuoteColumns.ISCURRENT + " = ?",
                 new String[] {"1"},
                 null);
+
     }
 
     @Override
@@ -234,6 +238,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         setEmptyView();
         updateStocksWidget();
     }
+
 
     @Override
     protected void onDestroy() {

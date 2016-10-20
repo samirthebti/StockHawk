@@ -69,7 +69,6 @@ public class StockWidgetService extends RemoteViewsService {
         public void onDestroy() {
             if (mCursor != null) {
                 mCursor.close();
-                mCursor = null;
             }
 
         }

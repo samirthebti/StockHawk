@@ -32,6 +32,7 @@ import okhttp3.Response;
 public class StockItemActivity extends AppCompatActivity {
     public static final String TAG = StockItemActivity.class.getSimpleName();
     private static final String STOCK_PARCEL = "liststock";
+    public static final String SYMBOL_PARCEL = "symb";
     private LineChart chart;
     private ArrayList<Stock> stocks;
     private OkHttpClient client;
@@ -47,12 +48,11 @@ public class StockItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        Bundle bundle = getIntent().getExtras();
         mSymbole = getIntent().getStringExtra(MyStocksActivity.INTENT_SYMBOLE_EXTRA);
 
         setContentView(R.layout.activity_stock_item);
         symbolTextView = (TextView) findViewById(R.id.symbolename);
+        getSupportActionBar().setTitle(mSymbole);
         symbolTextView.setText(mSymbole);
         symbolTextView.setContentDescription(mSymbole);
         chart = (LineChart) findViewById(R.id.chart);
@@ -92,6 +92,7 @@ public class StockItemActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
         outState.putParcelableArrayList(STOCK_PARCEL, (ArrayList<? extends Parcelable>) stocks);
+        outState.putString(SYMBOL_PARCEL, mSymbole);
     }
 
     @Override
@@ -99,8 +100,10 @@ public class StockItemActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         if (savedInstanceState == null || !(savedInstanceState.containsKey(STOCK_PARCEL))) {
             getData();
-        } else if (savedInstanceState != null || savedInstanceState.containsKey(STOCK_PARCEL)) {
+            mSymbole = getIntent().getStringExtra(MyStocksActivity.INTENT_SYMBOLE_EXTRA);
+        } else {
             stocks = savedInstanceState.getParcelableArrayList(STOCK_PARCEL);
+            mSymbole = savedInstanceState.getString(SYMBOL_PARCEL);
         }
     }
 
@@ -111,7 +114,6 @@ public class StockItemActivity extends AppCompatActivity {
             public void run() {
                 int i = 0;
                 for (Stock data : stocks) {
-                    //turn your data into Entry objects
                     entriesLabel.add(Utils.convertDate(data.getDate()));
                     float cls = Float.valueOf(data.getClose());
                     entries.add(new Entry(cls, i));

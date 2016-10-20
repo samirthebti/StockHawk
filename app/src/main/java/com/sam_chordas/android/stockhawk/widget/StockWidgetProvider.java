@@ -1,14 +1,11 @@
 package com.sam_chordas.android.stockhawk.widget;
 
-import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
-import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
 import com.sam_chordas.android.stockhawk.R;
@@ -64,24 +61,6 @@ public class StockWidgetProvider extends AppWidgetProvider {
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
 
-    }
-
-
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-    private static void setRemoteAdapter(Context context, @NonNull final RemoteViews views) {
-        views.setRemoteAdapter(R.id.widget_list,
-                new Intent(context, StockWidgetService.class));
-    }
-
-    /**
-     * Sets the remote adapter used to fill in the list items
-     *
-     * @param views RemoteViews to set the RemoteAdapter
-     */
-    @SuppressWarnings("deprecation")
-    private static void setRemoteAdapterV11(Context context, @NonNull final RemoteViews views, int appWidgetIds) {
-        views.setRemoteAdapter(appWidgetIds, R.id.widget_list,
-                new Intent(context, StockWidgetService.class));
     }
 }
 
