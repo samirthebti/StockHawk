@@ -3,6 +3,7 @@ package com.sam_chordas.android.stockhawk.rest;
 import android.content.ContentProviderOperation;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
@@ -22,6 +23,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 import static com.sam_chordas.android.stockhawk.service.StockTaskService.STATUS_OK;
@@ -44,6 +46,13 @@ public class Utils {
     public static final String BASE_URL = "http://chartapi.finance.yahoo.com/instrument/1.0/";
     public static final String END_URL = "/chartdata;type=quote;range=1y/json";
 
+    public static int randomColors() {
+        Random rand = new Random();
+        int r = rand.nextInt(200);
+        int g = rand.nextInt(200);
+        int b = rand.nextInt(200);
+        return Color.rgb(r, g, b);
+    }
 
     public static String builHistoricalRequest(@NonNull String symbol) throws UnsupportedEncodingException {
         String stringBuilder = null;

@@ -127,14 +127,15 @@ public class StockItemActivity extends AppCompatActivity {
                 yAxis.setDrawGridLines(false);
                 xAxis.setPosition(XAxisPosition.BOTTOM);
                 xAxis.setTextSize(12f);
-                chart.getAxisRight().setEnabled(true);
+                chart.getAxisRight().setDrawGridLines(false);
                 chart.getAxisLeft().setEnabled(true);
                 chart.getLegend().setTextSize(16f);
+                chart.getXAxis().setDrawGridLines(false);
                 LineDataSet dataSet = new LineDataSet(entries, mSymbole);
                 LineData lineData = new LineData(entriesLabel, dataSet);
                 chart.setBackgroundColor(Color.WHITE);
                 dataSet.setDrawFilled(false);
-                dataSet.setColor(getResources().getColor(R.color.material_red_700));
+                dataSet.setColor(Utils.randomColors());
                 dataSet.setDrawCircles(false);
                 dataSet.setDrawStepped(false);
                 chart.setClickable(true);
