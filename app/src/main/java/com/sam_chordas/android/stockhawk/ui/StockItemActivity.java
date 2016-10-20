@@ -113,6 +113,8 @@ public class StockItemActivity extends AppCompatActivity {
             @Override
             public void run() {
                 int i = 0;
+                entriesLabel.clear();
+                entries.clear();
                 for (Stock data : stocks) {
                     entriesLabel.add(Utils.convertDate(data.getDate()));
                     float cls = Float.valueOf(data.getClose());
@@ -125,18 +127,17 @@ public class StockItemActivity extends AppCompatActivity {
                 yAxis.setDrawGridLines(false);
                 xAxis.setPosition(XAxisPosition.BOTTOM);
                 xAxis.setTextSize(12f);
-                YAxis left = chart.getAxisLeft();
-                left.setEnabled(true);
-                chart.getAxisRight().setEnabled(false);
+                chart.getAxisRight().setEnabled(true);
+                chart.getAxisLeft().setEnabled(true);
                 chart.getLegend().setTextSize(16f);
                 LineDataSet dataSet = new LineDataSet(entries, mSymbole);
                 LineData lineData = new LineData(entriesLabel, dataSet);
                 chart.setBackgroundColor(Color.WHITE);
-                dataSet.setDrawFilled(true);
-                dataSet.setDrawValues(true);
+                dataSet.setDrawFilled(false);
+                dataSet.setColor(getResources().getColor(R.color.material_red_700));
                 dataSet.setDrawCircles(false);
+                dataSet.setDrawStepped(false);
                 chart.setClickable(true);
-                dataSet.setFillColor(getResources().getColor(R.color.material_green_700));
                 dataSet.setFillAlpha(1000);
                 chart.animateX(3000);
                 chart.setData(lineData);

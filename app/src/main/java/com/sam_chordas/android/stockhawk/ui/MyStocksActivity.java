@@ -117,27 +117,19 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                                 @Override
                                 public void onInput(MaterialDialog dialog, CharSequence input) {
                                     String inputString = input.toString();
-
                                     // check  Stock input format
                                     if (inputString.length() <= SYMBOL_LENGHT && Utils.inputFormatterChecker(inputString)) {
-
                                         Cursor c = getContentResolver().query(Quotes.CONTENT_URI,
                                                 new String[] {QuoteColumns.SYMBOL}, QuoteColumns.SYMBOL + "= ?",
                                                 new String[] {inputString.toLowerCase()}, null);
-
                                         if (c.getCount() != 0) {
-
                                             Snackbar.make(coordinatorLayout, R.string.stock_already_saved,
                                                     Snackbar.LENGTH_LONG).show();
-//
                                             return;
                                         } else {
                                             mServiceIntent.putExtra("tag", getString(R.string.add));
                                             mServiceIntent.putExtra("symbol", inputString);
                                             startService(mServiceIntent);
-                                            Snackbar.make(coordinatorLayout, inputString + getString(R.string.stock_added),
-                                                    Snackbar.LENGTH_LONG).
-                                                    show();
                                         }
                                     } else {
                                         Snackbar.make(coordinatorLayout, R.string.stock_size_msg,
@@ -147,8 +139,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                             })
                             .show();
                 } else {
-                    fab.setActivated(false);
-
                     Snackbar.make(coordinatorLayout, getString(R.string.string_status_no_network), Snackbar.LENGTH_LONG).show();
                 }
 
@@ -206,10 +196,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
 
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         if (id == R.id.action_change_units) {
 
             Utils.showPercent = !Utils.showPercent;
@@ -242,9 +228,8 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
 
     @Override
     protected void onDestroy() {
-        if (mCursor != null) {
-            mCursor.close();
-        }
+
+        recyclerView.clearOnScrollListeners();
         super.onDestroy();
     }
 
