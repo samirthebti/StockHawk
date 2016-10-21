@@ -42,8 +42,6 @@ public class Utils {
     private static final String JSON_SERIES = "series";
     private static final String JSON_DATE = "Date";
     private static final String JSON_CLOSE = "close";
-    private static final String JSON_COMP_NAME = "Company-Name";
-    private static final String JSON_PREV_CLOSE = "Company-Name";
     public static final String NULL = "null";
     public static final String BASE_URL = "http://chartapi.finance.yahoo.com/instrument/1.0/";
     public static final String END_URL = "/chartdata;type=quote;range=1y/json";

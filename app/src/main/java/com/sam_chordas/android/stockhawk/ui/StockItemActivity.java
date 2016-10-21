@@ -54,7 +54,6 @@ public class StockItemActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mSymbole = getIntent().getStringExtra(MyStocksActivity.INTENT_SYMBOLE_EXTRA);
-        getSupportActionBar().setTitle(mSymbole);
         chart = (LineChart) findViewById(R.id.chart);
         client = new OkHttpClient();
         xAxis = chart.getXAxis();
@@ -144,12 +143,14 @@ public class StockItemActivity extends AppCompatActivity {
                 chart.getXAxis().setDrawGridLines(false);
                 LineDataSet dataSet = new LineDataSet(entries, mSymbole);
                 LineData lineData = new LineData(entriesLabel, dataSet);
+                dataSet.setDrawValues(false);
                 chart.setBackgroundColor(Color.WHITE);
                 dataSet.setDrawFilled(false);
                 dataSet.setColor(Utils.randomColors());
                 dataSet.setDrawCircles(false);
                 dataSet.setDrawStepped(false);
-                chart.setClickable(true);
+                chart.setClickable(false);
+
                 dataSet.setFillAlpha(1000);
                 chart.animateX(3000);
                 chart.setData(lineData);
