@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -44,9 +43,8 @@ public class StockItemActivity extends AppCompatActivity {
     private List<String> entriesLabel = new ArrayList<>();
     private XAxis xAxis;
     private YAxis yAxis;
-
     private String mSymbole;
-    private TextView symbolTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +55,6 @@ public class StockItemActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mSymbole = getIntent().getStringExtra(MyStocksActivity.INTENT_SYMBOLE_EXTRA);
         getSupportActionBar().setTitle(mSymbole);
-        symbolTextView = (TextView) findViewById(R.id.symbolename);
-
-        symbolTextView.setText(mSymbole);
-        symbolTextView.setContentDescription(mSymbole);
         chart = (LineChart) findViewById(R.id.chart);
         client = new OkHttpClient();
         xAxis = chart.getXAxis();
