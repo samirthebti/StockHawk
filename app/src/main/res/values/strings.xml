@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Stock Hawk</string>
+    <string name="app_name" >Stock Hawk</string>
     <string name="action_settings" translatable="true">Settings</string>
     <string name="action_change_units" translatable="true">Change Units</string>
     <string name="symbol_search" translatable="true">Symbol Search</string>

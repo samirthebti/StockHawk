@@ -7,28 +7,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cardview_dark_background"
+    android:fitsSystemWindows="true"
     tools:context="com.sam_chordas.android.stockhawk.ui.StockItemActivity"
     >
 
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways"
+            tools:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            >
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/actionBarSize"
         android:orientation="vertical"
         >
 
         <android.support.v7.widget.CardView
             android:id="@+id/symbol_textveiw"
-            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="@dimen/card_height"
             app:cardBackgroundColor="@color/md_material_blue_800"
-            tools:elevation="@dimen/card_elevation"
-
             >
 
             <TextView
                 android:id="@+id/symbolename"
-                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -48,16 +64,11 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
-            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/symbol_textveiw"
             tools:elevation="@dimen/cardview_default_elevation"
-            tools:layout_marginBottom="@dimen/cardview_padding"
-
-            tools:layout_marginEnd="@dimen/cardview_padding"
-
-            tools:layout_marginRight="@dimen/cardview_padding"
+            tools:layout_margin="?attr/cardUseCompatPadding"
             >
 
             <com.github.mikephil.charting.charts.LineChart
