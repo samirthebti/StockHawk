@@ -5,8 +5,9 @@ Stock Hawk project gives an opportunity to diagnose problems and practice improv
 #Screenshots
 <img  height="400"  src="1.png" />
 <img   height="400" src="2.png" />
-<img   height="400" src="3.png" />
 <img  height="400"  src="4.png" />
+<img   height="400" src="3.png" />
+
 <br>
 
 # Project Specification
