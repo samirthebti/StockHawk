@@ -1,11 +1,13 @@
 # StockHawk
 Udacity - Android Developer Nanodegree - Projects 3: Stock Hawk
 
-Stock Hawk project gives an opportunity to diagnose problems and practice improving apps. These skills are vital to building apps users will love. Diagnosing issues with existing apps is key to working on large apps or continuing projects in Android. Being aware of the common pitfalls in app design frees a developer to produce novel app experiences without making the same mistakes over and over.
-<img  src="1.png" />
-<img  src="2.png" />
-<img  src="3.png" />
-<img  src="4.png" />
+Stock Hawk project gives an opportunity to diagnose problems and practice improving apps. These skills are vital to building apps users will love. Diagnosing issues with existing apps is key to working on large apps or continuing projects in Android. Being aware of the common pitfalls in app design frees a developer to produce novel app experiences without making the same mistakes over and over.<br>
+#Screenshots
+<img  height="400"  src="1.png" />
+<img   height="400" src="2.png" />
+<img   height="400" src="3.png" />
+<img  height="400"  src="4.png" />
+<br>
 
 # Project Specification
 <ul>
