@@ -53,7 +53,6 @@
             android:paddingLeft="@dimen/change_padding"
             android:paddingRight="@dimen/change_padding"
             android:paddingStart="@dimen/change_padding"
-            tools:text="@string/change_text_app"
             />
     </LinearLayout>
 </LinearLayout>

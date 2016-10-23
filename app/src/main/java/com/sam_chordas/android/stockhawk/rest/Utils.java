@@ -42,6 +42,9 @@ public class Utils {
     private static final String JSON_SERIES = "series";
     private static final String JSON_DATE = "Date";
     private static final String JSON_CLOSE = "close";
+    private static final String JSON_META = "meta";
+    private static final String JSON_NAME = "Company-Name";
+    private static final String JSON_PREV_CLOSE = "previous_close_price";
     public static final String NULL = "null";
     public static final String BASE_URL = "http://chartapi.finance.yahoo.com/instrument/1.0/";
     public static final String END_URL = "/chartdata;type=quote;range=1y/json";
@@ -128,6 +131,36 @@ public class Utils {
         }
 
         return stocks;
+    }
+
+    public static ArrayList<String> getStocklData(String json) {
+        ArrayList<String> meta = new ArrayList<>();
+        JSONObject jsonObject = null;
+        JSONObject resultsobject = null;
+        try {
+            //we need to remove first and last lines of json response
+//            String jsonGlobalObject = json.substring(json.indexOf("(") + 1, json.lastIndexOf(")"));
+            jsonObject = new JSONObject(json);
+            resultsobject = jsonObject.getJSONObject(JSON_META);
+
+            if (resultsobject != null && resultsobject.length() != 0) {
+                String name = new String();
+                String lastClose = new String();
+                name = (resultsobject.getString(JSON_NAME));
+                lastClose = (resultsobject.getString(JSON_PREV_CLOSE));
+                meta.add(name);
+                meta.add(lastClose);
+            }
+
+        } catch (
+                JSONException e
+                )
+
+        {
+            Log.e(LOG_TAG, "String to JSON failed: " + e);
+        }
+
+        return meta;
     }
 
     public static String truncateBidPrice(String bidPrice) {

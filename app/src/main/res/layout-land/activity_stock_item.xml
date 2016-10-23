@@ -64,14 +64,14 @@
         </android.support.v7.widget.CardView>
 
         <LinearLayout
-
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/char_card"
-
+            android:layout_toRightOf="@id/char_card"
+            android:gravity="center_vertical"
             android:orientation="vertical"
             >
+
             <android.support.v7.widget.AppCompatTextView
                 style="@style/TextAppearance.AppCompat.Display2"
                 android:layout_width="match_parent"
@@ -81,7 +81,6 @@
                 android:text="Facebook"
                 android:textColor="@color/primary"
                 app:textAllCaps="true"
-                tools:targetApi="jelly_bean"
                 />
 
             <android.support.v7.widget.AppCompatTextView

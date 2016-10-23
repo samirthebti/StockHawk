@@ -1,6 +1,8 @@
 package com.sam_chordas.android.stockhawk.ui;
 
-import android.graphics.Color;
+import android.content.Context;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.PersistableBundle;
@@ -9,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -44,6 +47,8 @@ public class StockItemActivity extends AppCompatActivity {
     private XAxis xAxis;
     private YAxis yAxis;
     private String mSymbole;
+    private Context mContext;
+    String name;
 
 
     @Override
@@ -53,12 +58,15 @@ public class StockItemActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mContext = this;
         mSymbole = getIntent().getStringExtra(MyStocksActivity.INTENT_SYMBOLE_EXTRA);
         chart = (LineChart) findViewById(R.id.chart);
         client = new OkHttpClient();
         xAxis = chart.getXAxis();
         yAxis = chart.getAxisLeft();
         getData();
+
+
     }
 
 
@@ -83,6 +91,13 @@ public class StockItemActivity extends AppCompatActivity {
             public void onResponse(Response response) throws IOException {
                 stocks = Utils.getHestoricalData(response.body().string());
                 plotData();
+                try {
+                    name = Utils.getStocklData(mSymbole).get(0);
+                    Toast.makeText(mContext, name, Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         });
     }
@@ -144,9 +159,12 @@ public class StockItemActivity extends AppCompatActivity {
                 LineDataSet dataSet = new LineDataSet(entries, mSymbole);
                 LineData lineData = new LineData(entriesLabel, dataSet);
                 dataSet.setDrawValues(false);
-                chart.setBackgroundColor(Color.WHITE);
                 dataSet.setDrawFilled(false);
-                dataSet.setColor(Utils.randomColors());
+                if (VERSION.SDK_INT >= VERSION_CODES.M) {
+                    dataSet.setColor(getResources().getColor(R.color.accent, mContext.getTheme()));
+                } else {
+                    dataSet.setColor(getResources().getColor(R.color.accent));
+                }
                 dataSet.setDrawCircles(false);
                 dataSet.setDrawStepped(false);
                 chart.setClickable(false);
