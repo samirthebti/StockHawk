@@ -26,4 +26,5 @@ Stock Hawk project gives an opportunity to diagnose problems and practice improv
 <li>MaterialLoadingProgressBar</li>
 <li>MPAndroidChart</li>
 <li>Material Design</li> 
+<li>Google Annotations library</li>
 </ul>
